@@ -1,0 +1,100 @@
+---
+swagger: "2.0"
+info:
+  description: "Api permettant des statistiques sur les patients d'un médecin"
+  version: "1.0.0"
+  title: "API Statistique"
+host: "localhost"
+basePath: "/"
+tags:
+- name: "stats"
+  description: "Récupération des statistiques sur les patients"
+- name: "user"
+  description: "Actions sur l'utilsateur"
+schemes:
+- "https"
+- "http"
+paths:
+  /stats/maladie:
+    get:
+      tags:
+      - "stats"
+      summary: "Récupére le pourcentage de patients par maladie"
+      description: ""
+      operationId: "getStatsMaladie"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+        "404":
+          description: "Nécessite Authentification"
+  /stats/age:
+    get:
+      tags:
+      - "stats"
+      summary: "Récupére la répartition des maladies par tranche d’âge."
+      description: ""
+      operationId: "getStatsAge"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+        "404":
+          description: "Nécessite Authentification"
+          
+  /user/login:
+    get:
+      tags:
+      - "user"
+      summary: "Identifie un médecin au  système"
+      description: ""
+      operationId: "loginMedecin"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "L'identifiant du médecin"
+        required: true
+        type: "integer"
+        format: "int64"
+        x-exportParamName: "Id"
+      - name: "password"
+        in: "query"
+        description: "Le mot de passe du médecin"
+        required: true
+        type: "string"
+        x-exportParamName: "Password"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "string"
+        "400":
+          description: "Identifiant / Mot de passe invalides"
+  /user/logout:
+    get:
+      tags:
+      - "user"
+      summary: "Déconnecte le médecin"
+      description: ""
+      operationId: "logoutMedecin"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        default:
+          description: "Successful operation"
+  
